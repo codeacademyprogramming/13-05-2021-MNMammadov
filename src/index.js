@@ -41,21 +41,39 @@ export function numberToWords(num) {
 
     if (length === 3) {
         const hundred = Math.floor(num / 100);
-        if (hundred === 1) {
-            return numberToWords(100) + ' ' + numberToWords(num % 100);
+        if (num % 100 !== 0) {
+            if (hundred === 1) {
+                return numberToWords(100) + ' ' + numberToWords(num % 100);
+            }
+            return numberToWords(hundred) + ' ' + numberToWords(100) + ' ' + numberToWords(num % 100);
+        } else {
+            if (hundred === 1) {
+                return numberToWords(100);
+            }
+            return numberToWords(hundred) + ' ' + numberToWords(100);
         }
-        return numberToWords(hundred) + ' ' + numberToWords(100) + ' ' + numberToWords(num % 100);
     }
 
     if (length === 4 || length === 5 || length === 6) {
         const thousand = Math.floor(num / 1000);
-        if (thousand === 1) {
-            return numberToWords(1000) + ' ' + numberToWords(num % 1000);
+        if (num % 1000 !== 0) {
+            if (thousand === 1) {
+                return numberToWords(1000) + ' ' + numberToWords(num % 1000);
+            }
+            return numberToWords(thousand) + ' ' + numberToWords(1000) + ' ' + numberToWords(num % 1000);
+        } else {
+            if (thousand === 1) {
+                return numberToWords(1000);
+            }
+            return numberToWords(thousand) + ' ' + numberToWords(1000);
         }
-        return numberToWords(thousand) + ' ' + numberToWords(1000) + ' ' + numberToWords(num % 1000);
     }
 
     if (length > 6) {
-        return numberToWords(Math.floor(num / 1000000)) + ' ' + numberToWords(1000000) + ' ' + numberToWords(num % 1000000);
+        if (num % 1000000 !== 0) {
+            return numberToWords(Math.floor(num / 1000000)) + ' ' + numberToWords(1000000) + ' ' + numberToWords(num % 1000000);
+        } else {
+            return numberToWords(Math.floor(num / 1000000)) + ' ' + numberToWords(1000000);
+        }
     }
 };
